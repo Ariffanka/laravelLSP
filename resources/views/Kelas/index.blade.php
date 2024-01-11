@@ -3,8 +3,8 @@
 
     <center>
         <b>
-            <h2>LIST DATA GURU</h2>
-            <a href="/guru/create" class="button-primary">Add</a>
+            <h2>LIST DATA KELAS</h2>
+            <a href="/kelas/create" class="button-primary">Add</a>
             @if (session('success'))
                 <div class="alert alert-success"><span class="closebtn" id="closeBtn">&times;</span>{{session('success')}}</div>
             @endif
@@ -15,27 +15,23 @@
                 <thead>
                     <tr>
                         <th>NO</th>
-                        <th>NIP</th>
-                        <th>NAMA GURU</th>
-                        <th>JENIS KELAMIN</th>
-                        <th>ALAMAT</th>
-                        <th>PASSWORD</th>
+                        <th>KELAS</th>
+                        <th>JURUSAN</th>
+                        <th>ROMBEL</th>
                         <th>ACITON</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ( $guru as $g )
+                    @foreach ( $kelas as $k )
                         
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $g->nip }}</td>
-                        <td>{{ $g->nama_guru }}</td>
-                        <td>{{ $g->jk == 'L' ? "Laki-laki" : "Perempuan"}}</td>
-                        <td>{{ $g->alamat }}</td>
-                        <td>{{ $g->password }}</td>
+                        <td>{{ $k->kelas }}</td>
+                        <td>{{ $k->jurusan }}</td>
+                        <td>{{ $k->rombel }}</td>
                         <td style="text-align: center">
-                            <a href="/guru/edit/{{$g->id}}" class="button-warning">Edit</a>
-                            <a href="/guru/destroy/{{$g->id}}" onclick="return confirm('Yakin?')" class="button-danger">Delete</a>
+                            <a href="/kelas/edit/{{$k->id}}" class="button-warning">Edit</a>
+                            <a href="/kelas/destroy/{{$k->id}}" onclick="return confirm('Yakin?')" class="button-danger">Delete</a>
                         </td>
                     </tr>
 

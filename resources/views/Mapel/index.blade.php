@@ -3,8 +3,8 @@
 
     <center>
         <b>
-            <h2>LIST DATA GURU</h2>
-            <a href="/guru/create" class="button-primary">Add</a>
+            <h2>LIST DATA MAPEL</h2>
+            <a href="/mapel/create" class="button-primary">Add</a>
             @if (session('success'))
                 <div class="alert alert-success"><span class="closebtn" id="closeBtn">&times;</span>{{session('success')}}</div>
             @endif
@@ -15,27 +15,19 @@
                 <thead>
                     <tr>
                         <th>NO</th>
-                        <th>NIP</th>
-                        <th>NAMA GURU</th>
-                        <th>JENIS KELAMIN</th>
-                        <th>ALAMAT</th>
-                        <th>PASSWORD</th>
+                        <th>MAPEL</th>
                         <th>ACITON</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ( $guru as $g )
+                    @foreach ( $mapel as $m )
                         
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $g->nip }}</td>
-                        <td>{{ $g->nama_guru }}</td>
-                        <td>{{ $g->jk == 'L' ? "Laki-laki" : "Perempuan"}}</td>
-                        <td>{{ $g->alamat }}</td>
-                        <td>{{ $g->password }}</td>
+                        <td>{{ $m->nama_mapel }}</td>
                         <td style="text-align: center">
-                            <a href="/guru/edit/{{$g->id}}" class="button-warning">Edit</a>
-                            <a href="/guru/destroy/{{$g->id}}" onclick="return confirm('Yakin?')" class="button-danger">Delete</a>
+                            <a href="/mapel/edit/{{$m->id}}" class="button-warning">Edit</a>
+                            <a href="/mapel/destroy/{{$m->id}}" onclick="return confirm('Yakin?')" class="button-danger">Delete</a>
                         </td>
                     </tr>
 

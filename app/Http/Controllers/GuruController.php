@@ -14,8 +14,8 @@ class GuruController extends Controller
      */
     public function index()
     {
-        return view('guru.index',[
-            'guru'=> Guru::all()
+        return view('Guru.index',[
+            'guru' => Guru::all()
         ]);
     }
 
@@ -24,7 +24,7 @@ class GuruController extends Controller
      */
     public function create()
     {
-        return view('guru.create');
+        return view('Guru.create');
     }
 
     /**
@@ -32,16 +32,18 @@ class GuruController extends Controller
      */
     public function store(Request $req)
     {
-        $data_guru= $req->validate([
-            'nip' => ['required', 'numeric', 'unique:gurus'],
-            'nama_guru' => ['required'],
-            'jk' => ['required'],
-            'alamat' => ['required'],
-            'password' => ['required']
+        $data= $req->validate([
+            'nip'=>['required','numeric', 'unique:gurus'],
+            'nama_guru'=>['required'],
+            'jk'=>['required'],
+            'alamat'=>['required'],
+            'password'=>['required'],
         ]);
 
-        Guru::create($data_guru);
-        return redirect('/guru/index')->with('success','berhasil tambah data!');
+        $guru= Guru::create($data);
+        if($guru){
+            return redirect('/guru/index')->with('success', 'berhasil tambah data!');
+        }
     }
 
     /**
@@ -55,9 +57,9 @@ class GuruController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Guru $guru)
+    public function edit(Request $req, Guru $guru)
     {
-        return view('guru.edit',[
+        return view('Guru.edit', [
             'guru' => $guru
         ]);
     }
@@ -67,16 +69,18 @@ class GuruController extends Controller
      */
     public function update(Request $req, Guru $guru)
     {
-        $data_guru= $req->validate([
-            'nip' => ['required', 'numeric', Rule::unique('gurus')->ignore($guru->id)],
-            'nama_guru' => ['required'],
-            'jk' => ['required'],
-            'alamat' => ['required'],
-            'password' => ['required']
+        $data= $req->validate([
+            'nip'=>['required','numeric', Rule::unique('gurus')->ignore($guru->id)],
+            'nama_guru'=>['required'],
+            'jk'=>['required'],
+            'alamat'=>['required'],
+            'password'=>['required'],
         ]);
 
-        $guru->update($data_guru);
-        return redirect('/guru/index/')->with('success', 'berhasil ubah data!');
+        $edit= $guru->update($data);
+        if($edit){
+            return redirect('/guru/index')->with('success', 'berhasil ubah data');
+        }
     }
 
     /**
@@ -84,12 +88,14 @@ class GuruController extends Controller
      */
     public function destroy(Guru $guru)
     {
-        $mengajar= Mengajar::where('guru_id', $guru->id)->first();
+        $mengajar = Mengajar::where('guru_id', $guru->id )->first();
         if($mengajar){
-            return back()->with('error', "$guru->nama_guru masih digunakan saat mengajar");
+            return back()->with('error', 'id guru sedang dipakai!');
         }
 
-        $guru->delete();
-        return back()->with('success', 'berhasil apus data');
+        $del=$guru->delete();
+        if($del){
+            return back()->with('succes', 'behasil hapus data!');
+        }
     }
 }
