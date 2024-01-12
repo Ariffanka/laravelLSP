@@ -4,6 +4,8 @@ use App\Http\Controllers\GuruController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
+use App\Http\Controllers\MengajarController;
+use App\Http\Controllers\SiswaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -62,5 +64,25 @@ Route::middleware('checkUserRole:admin')->group(function(){
         Route::get('/edit/{kelas}', 'edit');
         Route::post('/update/{kelas}', 'update');
         Route::get('/destroy/{kelas}', 'destroy');
+    });
+});
+
+Route::controller(SiswaController::class)->prefix('/siswa')->group(function(){
+    Route::get('/index', 'index');
+    Route::get('/create', 'create');
+    Route::post('/store', 'store');
+    Route::get('/edit/{siswa}', 'edit');
+    Route::post('/update/{siswa}', 'update');
+    Route::get('/destroy/{siswa}', 'destroy');
+});
+
+Route::middleware('checkUserRole:admin')->group(function(){
+    Route::controller(MengajarController::class)->prefix('/mengajar')->group(function(){
+        Route::get('/index', 'index');
+        Route::get('/create', 'create');
+        Route::post('/store', 'store');
+        Route::get('/edit/{mengajar}', 'edit');
+        Route::post('/update/{mengajar}', 'update');
+        Route::get('/destroy/{mengajar}', 'destroy');
     });
 });
