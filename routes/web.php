@@ -5,6 +5,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\MengajarController;
+use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\SiswaController;
 use Illuminate\Support\Facades\Route;
 
@@ -86,3 +87,16 @@ Route::middleware('checkUserRole:admin')->group(function(){
         Route::get('/destroy/{mengajar}', 'destroy');
     });
 });
+
+Route::middleware('checkUserRole:siswa,guru')->group(function(){
+    Route::controller(NilaiController::class)->prefix('/nilai')->group(function(){
+        Route::get('/index', 'index');
+        Route::get('/kelas/{kelas}', 'show');
+        Route::get('/create/{kelas}', 'create');
+        Route::post('/store/{kelas}', 'store');
+        Route::get('/edit/{kelas}/{nilai}', 'edit');
+        Route::post('/update/{kelas}/{nilai}', 'update');
+        Route::get('/destroy/{nilai}', 'destroy');
+    });
+});
+

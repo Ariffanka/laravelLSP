@@ -40,7 +40,7 @@ class IndexController extends Controller
 
         session([
             'role'=>'guru',
-            'nama_guru'=> $req->nama_guru,
+            'nama_guru'=> $guru->nama_guru,
             'id' => $guru->id
         ]);
 

@@ -11,7 +11,7 @@ class Nilai extends Model
     protected $table="nilais";
     protected $guarded=['id'];
     public function mengajar(){
-        return $this->belongsTo(Mengajar::class, 'kelas_id', 'id');
+        return $this->belongsTo(Mengajar::class, 'mengajar_id', 'id');
     }
     public function siswa(){
         return $this->belongsTo(Siswa::class, 'siswa_id', 'id');
