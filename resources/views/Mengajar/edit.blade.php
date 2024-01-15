@@ -10,34 +10,45 @@
                 <p class="text-danger">{{$e}}</p>
             @endforeach
         @endif
+        @if (session('error'))
+                <div class="alert alert-danger"><span class="closebtn" id="closeBtn">&times;</span>{{session('error')}}</div>
+            @endif
 
-        <form action="/kelas/update/{{$kelas->id}}" method="post">
+        <form action="/mengajar/update/{{$mengajar->id}}" method="post">
             @csrf
 
-            <label for="kelas">Kelas</label>
-            <select name="kelas" id="kelas">
-                @foreach ($tingkel as $k)
-                    @if ($kelas->kelas==$k)
-                        <option value="{{$k}}" selected>{{$k}}</option>
+            <label for="guru_id">Guru</label>
+            <select name="guru_id" id="guru_id">
+                @foreach ($guru as $g)
+                    @if ($mengajar->guru_id==$g->id)
+                        <option value="{{$g->id}}" selected>{{$g->nama_guru}}</option>
                     @else
-                        <option value="{{$k}}" >{{$k}}</option>
+                        <option value="{{$g->id}}" >{{$g->nama_guru}}</option>
                     @endif
                 @endforeach
             </select>
             
-            <label for="jurusan">Jurusan</label>
-            <select name="jurusan" id="jurusan">
-                @foreach ($jurusan as $j)
-                @if ($kelas->jurusan==$j)
-                    <option value="{{$j}}" selected>{{$j}}</option>
-                @else
-                    <option value="{{$j}}" >{{$j}}</option>
-                @endif
-            @endforeach
+            <label for="mapel_id">Mapel</label>
+            <select name="mapel_id" id="mapel_id">
+                @foreach ($mapel as $m)
+                    @if ($mengajar->mapel_id==$m->id)
+                        <option value="{{$m->id}}" selected>{{$m->nama_mapel}}</option>
+                    @else
+                        <option value="{{$m->id}}" >{{$m->nama_mapel}}</option>
+                    @endif
+                @endforeach
             </select>
 
-            <label for="rombel">Rombel</label>
-            <input type="number" name="rombel" max="4" min="1" id="rombel" value="{{$kelas->rombel}}">
+            <label for="kelas_id">Kelas</label>
+            <select name="kelas_id" id="kelas_id">
+                @foreach ($kelas as $k)
+                    @if ($mengajar->kelas_id==$k->id)
+                        <option value="{{$k->id}}" selected>{{$k->kelas}}{{$k->jurusan}}{{$k->rombel}}</option>
+                    @else
+                        <option value="{{$k->id}}" >{{$k->kelas}}{{$k->jurusan}}{{$k->rombel}}</option>
+                    @endif
+                @endforeach
+            </select>
 
             <button class="button-submit" type="submit" name="button">Ubah</button>
         </form>

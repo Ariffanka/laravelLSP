@@ -13,14 +13,19 @@ class NilaiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $req)
     {
-        if(session('role')=='guru'){
-            $kelasId=Mengajar::where('guru_id', session('id'))->pluck('kelas_id')->toArray();
+        $kelasId=Mengajar::where('guru_id', session('id'))->pluck('kelas_id')->toArray();
             $kelas= Kelas::whereIn('id', $kelasId)->get();
+        if($req->kelas){
+            return redirect("/nilai/kelas/$req->kelas")->with(['kelas', $kelas, 'kelasPilih', $kelasId, 'kelasId', $req->kelas]);
+        }
+        if(session('role')=='guru'){
+            
 
             return view('Nilai.menu', [
-                'kelas' => $kelas
+                'kelas' => $kelas,
+                'kelasPilih' => Kelas::all()
             ]);
         }else{
             $nilai= Nilai::where('siswa_id', session('id'))->get();
@@ -82,7 +87,8 @@ class NilaiController extends Controller
 
         return view('Nilai.index', [
             'nilai' => $data,
-            'idKelas' => $idKelas
+            'idKelas' => $idKelas,
+            'kelas_id' => $idKelas
         ]);
     }
 

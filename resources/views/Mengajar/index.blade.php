@@ -28,7 +28,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $m->guru->nama_guru }}</td>
                         <td>{{ $m->mapel->nama_mapel }}</td>
-                        <td>{{ $m->kelas->kelas }}</td>
+                        <td>{{ $m->kelas->kelas }}{{ $m->kelas->jurusan }}{{ $m->kelas->rombel }}</td>
                         <td style="text-align: center">
                             <a href="/mengajar/edit/{{$m->id}}" class="button-warning">Edit</a>
                             <a href="/mengajar/destroy/{{$m->id}}" onclick="return confirm('Yakin?')" class="button-danger">Delete</a>

@@ -43,8 +43,8 @@ class MengajarController extends Controller
             'kelas_id' => 'required'
         ]);
 
-        $create= Mengajar::firstOrNew($data);
-        if($create->exist){
+        $mengajar= Mengajar::firstOrNew($data);
+        if($mengajar->exist){
             return back()->with('error', 'data sudah ada!');
         }else{
             $mengajar->save();
@@ -65,24 +65,43 @@ class MengajarController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Mengajar $mengajar)
     {
-        //
+        return view('Mengajar.edit',[
+            'mengajar' => $mengajar,
+            'kelas' => Kelas::all(),
+            'mapel' => Mapel::all(),
+            'guru' => Guru::all()
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $req, Mengajar $mengajar)
     {
-        //
+        $data= $req->validate([
+            'guru_id' => 'required',
+            'mapel_id' => 'required',
+            'kelas_id' => 'required'
+        ]);
+
+        if($req->mapel_id != $mengajar->mapel_id || $req->kelas_id != $mengajar->kelas_id){
+            $cek= Mengajar::where('mapel_id', $req->mapel_id)->where('kelas_id', $req->kelas_id);
+            if($cek){
+                return back()->with('error', 'data sudah ada');
+            }
+            $mengajar->update($data);
+            return redirect('/mengajar/index')->with('success', 'data berhasil ubah');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Mengajar $mengajar)
     {
-        //
+        $mengajar->delete();
+        return back()->with('success', 'berhsil diapus');
     }
 }

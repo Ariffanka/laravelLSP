@@ -56,7 +56,7 @@ class IndexController extends Controller
 
         session([
             'role'=>'siswa',
-            'nama_guru'=> $req->nama_siswa,
+            'nama_siswa'=> $siswa->nama_siswa,
             'id' => $siswa->id
         ]);
 

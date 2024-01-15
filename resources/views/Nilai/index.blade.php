@@ -4,7 +4,9 @@
     <center>
         <b>
             <h2>LIST DATA NILAI</h2>
-            <a href="/mengajar/create" class="button-primary">Add</a>
+            @if (session('role')=='guru')
+                <a href="/nilai/create/{{$idKelas}}" class="button-primary">Add</a>
+            @endif
             @if (session('success'))
                 <div class="alert alert-success"><span class="closebtn" id="closeBtn">&times;</span>{{session('success')}}</div>
             @endif
@@ -37,7 +39,7 @@
                         <td>{{ $n->siswa->nama_siswa }}</td>
                         <td>{{ $n->uh}}</td>
                         <td>{{ $n->uts}}</td>
-                        <td>{{ $n->uah}}</td>
+                        <td>{{ $n->uas}}</td>
                         <td>{{ $n->na}}</td>
                         @if (session('role')=='guru')    
                         <td style="text-align: center">

@@ -33,7 +33,7 @@ class KelasController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $req)
+    public function store(Request $req, Kelas $kelas)
     {
         $data= $req->validate([
             'jurusan' => 'required',
@@ -41,12 +41,15 @@ class KelasController extends Controller
             'rombel' => 'required'
         ]);
 
-        $create= Kelas::firstOrNew($data);
-        if($create->exist){
+        $kelas= Kelas::firstOrNew($data);
+        if($kelas->exist){
             return back()->with('error', 'data sudah ada!');
         }
-        if($create){
-            return redirect('/kelas/index')->with('success', 'berhasil tambah data!');
+        if($kelas){
+            $add= $kelas->save($data);
+            if($add){
+                return redirect('/kelas/index')->with('success', 'berhasil tambah data!');
+            }
         }
         
     }
