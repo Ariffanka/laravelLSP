@@ -106,7 +106,7 @@
             <center>
                 <b>
                     <p class="mar">Gallery</p>
-                    <img src="{{asset('img/g2.jpeg')}}" width="40%" alt="">
+                    <img src="{{asset('img/g2.jpeg')}}" width="60%" alt="">
                     <div class="deskripsi">SMK BISA {{date('Y')}}</div>
                 </b>
             </center>

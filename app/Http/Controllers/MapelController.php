@@ -80,7 +80,7 @@ class MapelController extends Controller
     public function destroy(Mapel $mapel)
     {
 
-        $mengajar = Mengajar::where('guru_id', $mapel->id )->first();
+        $mengajar = Mengajar::where('mapel_id', $mapel->id )->first();
         if($mengajar){
             return back()->with('error', 'id guru sedang dipakai!');
         }

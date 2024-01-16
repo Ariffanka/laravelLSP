@@ -15,7 +15,9 @@ class NilaiController extends Controller
      */
     public function index(Request $req)
     {
+        //mengambil kelas id melalui pluck lalu jadikan array dan dimasukan ke dalam $kelasId
         $kelasId=Mengajar::where('guru_id', session('id'))->pluck('kelas_id')->toArray();
+        //mencari id tabel kelas dengan data dari $kelasId
             $kelas= Kelas::whereIn('id', $kelasId)->get();
         if($req->kelas){
             return redirect("/nilai/kelas/$req->kelas")->with(['kelas', $kelas, 'kelasPilih', $kelasId, 'kelasId', $req->kelas]);
@@ -118,7 +120,9 @@ class NilaiController extends Controller
             'uts'=>['required', 'numeric'],
             'uas' => ['required', 'numeric'],
         ]);
+        //isi tabel na
         $data['na']= round(($req->uh + $req->uts + $req->uas) / 3);
+        //cek apakah ada perubahan data saat kirim req dari form edit
         if($req->mengajar_id !=  $nilai->mengajar_id || $req->siswa_id != $nilai->siswa_id){
             $cek= Nilai::where('mengajar_id', $req->mengajar_id)->where('siswa_id', $req->siswa_id)->first();
             if($cek){

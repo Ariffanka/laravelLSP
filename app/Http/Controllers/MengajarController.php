@@ -85,7 +85,7 @@ class MengajarController extends Controller
             'mapel_id' => 'required',
             'kelas_id' => 'required'
         ]);
-
+        //cek data beda gan antara data di db dan req dari form edit
         if($req->mapel_id != $mengajar->mapel_id || $req->kelas_id != $mengajar->kelas_id){
             $cek= Mengajar::where('mapel_id', $req->mapel_id)->where('kelas_id', $req->kelas_id);
             if($cek){
