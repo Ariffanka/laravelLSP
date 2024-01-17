@@ -47,6 +47,8 @@ class MengajarController extends Controller
         if($mengajar->exist){
             return back()->with('error', 'data sudah ada!');
         }else{
+            $cek= Mengajar::where('mapel_id', $req->mapel_id)->where('kelas_id', $req->kelas_id);
+            if($cek) return back()->with('error', 'gur dah ngajar kelas lain coy');
             $mengajar->save();
             return redirect('/mengajar/index')->with('success', 'berhasil tambah data!');
         }

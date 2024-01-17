@@ -20,7 +20,7 @@ class NilaiController extends Controller
         //mencari id tabel kelas dengan data dari $kelasId
             $kelas= Kelas::whereIn('id', $kelasId)->get();
         if($req->kelas){
-            return redirect("/nilai/kelas/$req->kelas")->with(['kelas', $kelas, 'kelasPilih', $kelasId, 'kelasId', $req->kelas]);
+            return redirect("/nilai/create/$req->kelas")->with(['kelas', $kelas, 'kelasPilih', $kelasId, 'kelasId', $req->kelas]);
         }
         if(session('role')=='guru'){
             

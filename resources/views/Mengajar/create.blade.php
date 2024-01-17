@@ -4,7 +4,12 @@
     <div class="container-form">
         <h2 align="center"> Tambah data mengajar</h2>
 
-
+        @if (session('success'))
+        <div class="alert alert-success"><span class="closebtn" id="closeBtn">&times;</span>{{session('success')}}</div>
+    @endif
+    @if (session('error'))
+        <div class="alert alert-danger"><span class="closebtn" id="closeBtn">&times;</span>{{session('error')}}</div>
+    @endif
         @if ($errors->any())
             @foreach ($errors as $e)
                 <p class="text-danger">{{$e}}</p>

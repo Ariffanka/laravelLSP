@@ -8,7 +8,7 @@
                 @csrf
                 <label for="kelas"></label>
                 <select name="kelas" id="kelas">
-                    @foreach ($kelasPilih as $k) 
+                    @foreach ($kelas as $k) 
                     <option value="{{$k->id}}">{{ $k->kelas }} {{ $k->jurusan }} {{ $k->rombel }}</option>
                     @endforeach
                 </select>
